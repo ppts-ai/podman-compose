@@ -76,8 +76,7 @@ def log(*msgs, sep=" ", end="\n"):
     sys.stderr.flush()
 
 
-# dir_re = re.compile(r"^[~/\.]")
-dir_re = re.compile(r"^(?!/mnt/)[~/\.]")
+dir_re = re.compile(r"^[~/\.]")
 propagation_re = re.compile(
     "^(?:z|Z|O|U|r?shared|r?slave|r?private|r?unbindable|r?bind|(?:no)?(?:exec|dev|suid))$"
 )
@@ -153,8 +152,9 @@ def parse_short_mount(mount_str, basedir):
         # User-relative path
         # - ~/configs:/etc/configs/:ro
         mount_type = "bind"
-        mount_src = os.path.abspath(
-            os.path.join(basedir, os.path.expanduser(mount_src))
+        if not mount_src.startswith("/mnt/"):
+            mount_src = os.path.abspath(
+                os.path.join(basedir, os.path.expanduser(mount_src))
         )
     else:
         # Named volume
@@ -1624,7 +1624,6 @@ class PodmanCompose:
                         mnt_dict.get("type", None) == "volume"
                         and mnt_dict["source"]
                         and mnt_dict["source"] not in self.vols
-                        and not mnt_dict["source"].startswith("/mnt/")
                     ):
                         vol_name = mnt_dict["source"]
                         raise RuntimeError(
