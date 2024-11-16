@@ -76,7 +76,8 @@ def log(*msgs, sep=" ", end="\n"):
     sys.stderr.flush()
 
 
-dir_re = re.compile(r"^[~/\.]")
+# dir_re = re.compile(r"^[~/\.]")
+dir_re = re.compile(r"^(?!/mnt/)[~/\.]")
 propagation_re = re.compile(
     "^(?:z|Z|O|U|r?shared|r?slave|r?private|r?unbindable|r?bind|(?:no)?(?:exec|dev|suid))$"
 )
