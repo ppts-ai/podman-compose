@@ -49,6 +49,8 @@ is_list = lambda l: not is_str(l) and not is_dict(l) and hasattr(l, "__iter__")
 # identity filter
 filteri = lambda a: filter(lambda i: i, a)
 
+script_dir = os.path.dirname(script)
+os.environ['PATH'] = f"{script_dir}:{os.environ.get('PATH', '')}"
 
 def try_int(i, fallback=None):
     try:
