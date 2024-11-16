@@ -1624,6 +1624,7 @@ class PodmanCompose:
                         mnt_dict.get("type", None) == "volume"
                         and mnt_dict["source"]
                         and mnt_dict["source"] not in self.vols
+                        and not mnt_dict["source"].startswith("/mnt/")
                     ):
                         vol_name = mnt_dict["source"]
                         raise RuntimeError(
