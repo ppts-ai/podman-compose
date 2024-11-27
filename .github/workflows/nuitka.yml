@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-            os: [macos-13,macos-latest,windows-latest]
+            os: [windows-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -19,7 +19,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Build Executable with Nuitka
         uses: Nuitka/Nuitka-Action@main
@@ -30,7 +30,7 @@ jobs:
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
           include-package: yaml,dotenv
-          include-module: _socket,_bisect,_json
+          include-module: _socket
           mode: onefile
 
       - name: Upload Artifacts
