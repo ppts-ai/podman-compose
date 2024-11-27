@@ -29,7 +29,7 @@ jobs:
           # many more Nuitka options available, see action doc, but it's best
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
-          include-package: yaml,dotenv
+          include-package: yaml,dotenv,asyncio
           include-module: _socket
           mode: onefile
 
