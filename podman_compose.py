@@ -29,12 +29,6 @@ from asyncio import Task
 class GracefulExit(SystemExit):
     code = 1
 
-
-def raise_graceful_exit(*args):
-    loop.stop()
-    print("Gracefully shutdown")
-    raise GracefulExit()
-
 try:
     from shlex import quote as cmd_quote
 except ImportError:
@@ -2575,6 +2569,11 @@ async def compose_up(compose: PodmanCompose, args):
     tasks = set()
 
     loop = asyncio.get_event_loop()
+    
+    def raise_graceful_exit(*args):
+        loop.stop()
+        print("Gracefully shutdown")
+        raise GracefulExit()
     # loop.add_signal_handler(signal.SIGINT, lambda: [t.cancel("User exit") for t in tasks])
     signal.signal(signal.SIGINT, raise_graceful_exit)
     signal.signal(signal.SIGTERM, raise_graceful_exit)
