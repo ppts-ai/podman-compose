@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-            os: [macos-13,macos-latest,windows-latest]
+            os: [windows-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -29,8 +29,8 @@ jobs:
           # many more Nuitka options available, see action doc, but it's best
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
-          include-package: yaml,dotenv,asyncio
-          include-module: _socket
+          include-package: yaml,dotenv
+          include-module: _socket,asyncio
           mode: onefile
 
       - name: Upload Artifacts
