@@ -40,6 +40,8 @@ from dotenv import dotenv_values
 __version__ = "1.2.0"
 
 script = os.path.realpath(sys.argv[0])
+script_dir = os.path.dirname(script)
+os.environ['PATH'] = f"{script_dir}:{os.environ.get('PATH', '')}"
 
 # helper functions
 
