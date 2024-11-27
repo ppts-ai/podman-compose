@@ -2,7 +2,7 @@ name: Build nuitka
 
 on:
     push:
-      branches: [ 'nuitka']
+      branches: [ 'nuitka', 'v1.2']
 jobs:
   build:
     strategy:
@@ -30,7 +30,6 @@ jobs:
           # to use nuitka-project: options in your code, so e.g. you can make
           # a difference for macOS and create an app bundle there.
           include-package: yaml,dotenv
-          onefile: true
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
